@@ -30,7 +30,7 @@ def nouveau_salon():
     return render_template('salon_réussit.html') 
     
 '''
-routes dynamiques en dessous
+routes dynamiques en dessousq
 '''
 
 
