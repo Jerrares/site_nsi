@@ -34,11 +34,11 @@ routes dynamiques en dessous
 '''
 
 
-@app.route('/<Test>')
+@app.route('/<ligne>')
 def userlist(ligne):
-	Liste_user = pd.read_csv(f'/salons/{Test}.csv')
+	Liste_user = pd.read_csv(f'salons/{ligne}.csv')
 	user = Liste_user[ligne]
-	return render_template('salon.html', data=user)
+	return render_template('Page_principale.html', data=user)
 
 @app.errorhandler(404)
 def page_not_found(e):
