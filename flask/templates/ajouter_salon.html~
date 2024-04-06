@@ -1,0 +1,17 @@
+	<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title><h1>"Quel est le nom du salon que vous shouaitez ajouter"</h1></title>
+</head>
+<body>
+    {% if message %}
+        <h2>{{ message }}</h2>
+    {% endif %}
+<form action="/nouveau_salon" method="POST">
+<input type="text" id="nom_salon" required name="nom_salon">
+<input type="submit" id="envoyer">
+
+
+</body>
+</html>

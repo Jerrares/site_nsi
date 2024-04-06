@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Titre de la page</title>
+<style>
+ body {
+    background-image: url(/static/therock.jpeg);
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh
+ }
+ img {
+    display: block;
+    margin: 0 auto; /* Centre l'image horizontalement */
+    width: 800px;
+    height: auto;
+  
+ }
+ 
+ 
+
+div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+</style>
+</head>
+<body>
+<div>
+ 	<img src="/static/ccassé.png" alt="vous avez tout cassé" />
+ </div>
+</body>
+</html>	
