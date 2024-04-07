@@ -1,0 +1,6 @@
+<style>
+    #liste-des-salons tbody tr {
+        border: 1px solid #000; /* Ajoute une bordure autour de chaque ligne */
+        padding: 10px; /* Ajoute un peu d'espace à l'intérieur de chaque ligne */
+    }
+</style>
