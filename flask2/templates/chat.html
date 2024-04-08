@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .sent {
+        text-align: right;
+        color: blue;
+    }
+    .received {
+        text-align: left;
+        color: green;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <title>Chat</title>
+
+</head>
+<body>
+    <ul id="messages"></ul>
+    <form id="form">
+        <input type="text" id="message" placeholder="Type a message">
+        <button type="submit">Send</button>
+    </form>
+    <script>
+var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+socket.on('connect', function() {
+    console.log('Connected to server');
+});
+
+socket.on('message', function(data) {
+    $('#messages').prepend('<li>' + data + '</li>');
+});
+
+$('#form').submit(function(e) {
+    e.preventDefault();
+    var message = $('#message').val();
+    socket.emit('message', message);
+    $('#message').val('');
+    return false;
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+
+        <main>
+
+            <section style="margin: auto; width:80%">
+                <h3>nom du salon</h3>
+                <form method="post">
+                    <input type="text" name="salon" placeholder="Nom du salon"/>
+                    <div style="display:grid">
+                        <div style="grid-column: 1">
+                            <button type="cancel" onclick="javascript:history.back();return false;">anuler</button>
+                        </div>
+                        <div style="grid-column: 2">
+                            <button type="submit">créer</button>
+                        </div>
+                    </div>
+                </form>
+                {% if error %}<mark>{{ error }}</mark>{% endif %}
+            </section>
+
+        </main>
+
+
+
+    </body>
+</html>

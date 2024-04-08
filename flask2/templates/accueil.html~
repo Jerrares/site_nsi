@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html data-theme="dark"> <!-- On indique que la page sera en mode sombre -->
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/><!-- lien vers un fichier css externe trouvable en ligne -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+
+        <main>
+
+            <section style="margin: auto; width:80%"><!-- Section avec un style spécifique pour centrer le contenu et définir une largeur -->
+                <h3>bienvenue {{ session['user']['username'] }}</h3><!-- affichage d'un message de bienvenue avec le nom d'utilisateur  -->
+                <a href="/logout">Logout</a><!-- Lien pour se déconnecter -->
+
+                <div style="margin-top: 20px"><!-- Div avec un style spécifique pour ajouter une marge en haut -->
+
+                    <div style="display:grid">
+
+                        {% for salon in salons %}<!-- Boucle pour parcourir chaque salle dans la liste des salles -->
+
+                            <div style="grid-column: 1">{{ salon['nom'] }}</div>
+
+                            <div style="grid-column: 2">
+                                {% if salon['cible'] %}
+                                    [FULL] {{ salon['cible'] }}
+                                {% else %}
+                                    <a href="/salon/{{ salon['id'] }}">Entrer dans le salon</a>
+                                {% endif %}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <a href="/nouveau_salon">Créer un nouveau salon</a>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </body>
+</html>
