@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html data-theme="dark">
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            /* Style général de la page */
+            body {
+                background-color: #f5be00; /* Couleur de fond dorée */
+                color: #fff; /* Couleur du texte en blanc */
+                min-height: 100vh; /* Hauteur minimale de la page */
+                display: flex; /* Utilisation de flexbox pour la mise en page */
+                flex-direction: column; /* Les éléments sont empilés verticalement */
+                align-items: center; /* Centre les éléments horizontalement */
+                justify-content: center; /* Centre les éléments verticalement */
+            }
+            .logo {
+                display: block;
+                margin: 20px auto;
+                width: 200px; /* Largeur du logo */
+            }
+            main {
+                padding: 20px;
+            }
+            section {
+                background-color: #333; /* Couleur de fond pour la section */
+                padding: 20px;
+                border-radius: 10px; /* Coins arrondis */
+                width: 80%; /* Largeur de la section */
+                margin: auto; /* Centrage horizontal de la section */
+            }
+            h3 {
+                margin-bottom: 20px; /* Marge en bas du titre */
+            }
+            form {
+                display: flex; /* Utilisation de flexbox pour la mise en page des éléments du formulaire */
+                flex-direction: column; /* Les éléments du formulaire sont empilés verticalement */
+            }
+            input[type="text"] {
+                padding: 10px; /* Espacement interne des champs de texte */
+                margin-bottom: 10px; /* Marge en bas des champs de texte */
+                border: none; /* Pas de bordure autour des champs de texte */
+                border-radius: 5px; /* Coins arrondis des champs de texte */
+            }
+            button {
+                padding: 10px; /* Espacement interne du bouton */
+                border: none; /* Pas de bordure autour du bouton */
+                border-radius: 5px; /* Coins arrondis du bouton */
+                background-color: #007bff; /* Couleur de fond du bouton */
+                color: white; /* Couleur du texte du bouton */
+                cursor: pointer; /* Changement du curseur en main lors du survol */
+            }
+            button:hover {
+                background-color: #0056b3; /* Couleur de fond du bouton lors du survol */
+            }
+            mark {
+                background-color: #ff0000; /* Couleur de fond pour les erreurs */
+                color: white; /* Couleur du texte pour les erreurs */
+                padding: 5px; /* Espacement interne pour les erreurs */
+                border-radius: 5px; /* Coins arrondis pour les erreurs */
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="logo">
+            <img src="/static/logo.png" alt="Logo"></a>
+        </div>
+
+        <main>
+
+            <section>
+                <h3>Entrez votre pseudo</h3>
+                <form method="post">
+                    <input type="text" name="pseudo" placeholder="Pseudo"/>
+                    <button type="submit">Entrer</button>
+                </form>
+                {% if error %}<mark>{{ error }}</mark>{% endif %}
+            </section>
+
+        </main>
+
+    </body>
+</html>

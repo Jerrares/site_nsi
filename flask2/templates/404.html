@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Erreur 404</title>
+    <style>
+        /* Style général de la page */
+        body {
+            background-color: #f5be00; /* Couleur de fond de la page */
+            color: black; /* Couleur du texte */
+            font-family: Arial, sans-serif; /* Police de caractères */
+            min-height: 100vh; /* Hauteur minimale de la page */
+            display: flex; /* Utilisation de flexbox pour la mise en page */
+            flex-direction: column; /* Les éléments sont empilés verticalement */
+            align-items: center; /* Centre les éléments horizontalement */
+            justify-content: center; /* Centre les éléments verticalement */
+        }
+        /* Style pour le conteneur principal */
+        .container {
+            max-width: 600px; /* Largeur maximale du conteneur */
+            margin: 0 auto; /* Centrage horizontal du conteneur */
+            text-align: center; /* Alignement du texte au centre */
+            padding: 20px; /* Espacement interne du conteneur */
+            background-color: white; /* Couleur de fond du conteneur */
+            border-radius: 10px; /* Coins arrondis du conteneur */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Ombre du conteneur */
+        }
+        /* Style pour le titre */
+        h1 {
+            font-size: 80px; /* Taille de la police du titre */
+            margin-bottom: 20px; /* Marge en bas du titre */
+        }
+        /* Style pour les images */
+        img {
+            width: 400px; /* Largeur des images */
+            height: auto; /* Hauteur automatique pour conserver le ratio d'aspect */
+            margin-bottom: 20px; /* Marge en bas des images */
+        }
+        /* Style pour les liens */
+        a {
+            color: #007bff; /* Couleur du lien */
+            text-decoration: none; /* Pas de soulignement */
+            padding: 10px 20px; /* Espacement interne du lien */
+            border: 2px solid #007bff; /* Bordure du lien */
+            border-radius: 5px; /* Coins arrondis du lien */
+            transition: background-color 0.3s ease; /* Transition pour le changement de couleur de fond */
+        }
+        /* Style pour le survol des liens */
+        a:hover {
+            background-color: #007bff; /* Couleur de fond du lien lors du survol */
+            color: white; /* Couleur du texte du lien lors du survol */
+        }
+        /* Style pour le logo */
+        #logo {
+            position: absolute; /* Position absolue du logo */
+            top: 20px; /* Position en haut du logo */
+            left: 50%; /* Position à la moitié de la largeur de la page */
+            transform: translateX(-50%); /* Centrage horizontal du logo */
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo en haut de la page -->
+    <div id="logo">
+        <a href="/accueil"><img src="/static/logo.png" alt="Logo"></a>
+    </div>
+    <!-- Conteneur principal pour le contenu de la page -->
+    <div class="container">
+        <!-- Image d'erreur 404 -->
+        <img src="/static/404.png" alt="404">
+        <!-- Titre de l'erreur 404 -->
+        <h1>404</h1>
+        <!-- Message d'erreur -->
+        <p>La page que vous recherchez n'existe pas.</p>
+        <!-- Lien pour retourner à la page d'accueil -->
+        <a href="{{ url_for('accueil') }}">Retour à la page d'accueil</a>
+    </div>
+</body>
+</html>

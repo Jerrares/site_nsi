@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    /* Style général de la page */
+    body {
+        font-family: Arial, sans-serif; /* Police de caractères */
+        background-color: #f5be00; /* Couleur de fond de la page */
+        margin: 0; /* Pas de marge autour du corps */
+        padding: 0; /* Pas de padding autour du corps */
+        display: flex; /* Utilisation de flexbox pour la mise en page */
+        flex-direction: column; /* Les éléments sont empilés verticalement */
+        align-items: center; /* Centre les éléments horizontalement */
+        min-height: 100vh; /* Hauteur minimale de la page */
+    }
+    /* Style pour le logo */
+    #logo {
+        margin-top: 20px; /* Ajoute un peu d'espace en haut */
+    }
+    #logo img {
+        width: 200px; /* Réduit la taille de l'image */
+        height: auto; /* Conserve le ratio d'aspect de l'image */
+    }
+    /* Style pour les messages */
+    #messages {
+        list-style-type: none; /* Pas de puces pour les listes */
+        margin: 0; /* Pas de marge autour des messages */
+        padding: 0; /* Pas de padding autour des messages */
+        display: flex; /* Utilisation de flexbox pour la mise en page */
+        flex-direction: column; /* Les messages sont empilés verticalement */
+        align-items: flex-start; /* Alignement des messages à gauche */
+        width: 80%; /* Largeur maximale des messages */
+        margin-top: 20px; /* Ajoute un peu d'espace entre le logo et les messages */
+    }
+    #messages li {
+        padding: 10px; /* Espacement interne des messages */
+        margin-bottom: 10px; /* Marge en bas des messages */
+        border-radius: 5px; /* Coins arrondis des messages */
+        max-width: 70%; /* Largeur maximale des messages */
+    }
+    /* Style pour les messages envoyés */
+    .sent {
+        text-align: right; /* Alignement à droite des messages envoyés */
+        color: blue; /* Couleur du texte des messages envoyés */
+        background-color: #e6f2ff; /* Couleur de fond des messages envoyés */
+        align-self: flex-end; /* Alignement à droite des messages envoyés */
+    }
+    /* Style pour les messages reçus */
+    .received {
+        text-align: left; /* Alignement à gauche des messages reçus */
+        color: green; /* Couleur du texte des messages reçus */
+        background-color: #e6ffe6; /* Couleur de fond des messages reçus */
+    }
+    /* Style pour le formulaire de saisie des messages */
+    #form {
+        position: fixed; /* Position fixe du formulaire */
+        bottom: 0; /* Alignement en bas du formulaire */
+        width: 100%; /* Largeur maximale du formulaire */
+        background-color: #ffffff; /* Couleur de fond du formulaire */
+        padding: 10px; /* Espacement interne du formulaire */
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1); /* Ombre du formulaire */
+    }
+    #form input[type="text"] {
+        width: 80%; /* Largeur des champs de texte */
+        padding: 10px; /* Espacement interne des champs de texte */
+        border: none; /* Pas de bordure autour des champs de texte */
+        border-radius: 5px; /* Coins arrondis des champs de texte */
+    }
+    #form button {
+        width: 18%; /* Largeur du bouton */
+        padding: 10px; /* Espacement interne du bouton */
+        border: none; /* Pas de bordure autour du bouton */
+        border-radius: 5px; /* Coins arrondis du bouton */
+        background-color: #007bff; /* Couleur de fond du bouton */
+        color: white; /* Couleur du texte du bouton */
+        cursor: pointer; /* Changement du curseur en main lors du survol */
+    }
+    #form button:hover {
+        background-color: #0056b3; /* Couleur de fond du bouton lors du survol */
+    }
+</style>
+
+<!-- Inclusion des bibliothèques JavaScript nécessaires -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<title>Chat</title>
+</head>
+<body>
+    <!-- Logo en haut de la page -->
+    <div id="logo">
+        <a href="/accueil"><img src="/static/logo.png" alt="Logo"></a>
+    </div>
+    <!-- Liste des messages -->
+    <ul id="messages"></ul>
+    <!-- Formulaire pour envoyer des messages -->
+    <form id="form">
+        <input type="text" id="message" placeholder="Type a message">
+        <input type="hidden" id="id_salon" value='{{id_salon}}'> <!-- ID du salon -->
+        <input type="hidden" id="id_user" value="{{session['user']['id']}}"> <!-- ID de l'utilisateur -->
+        <button type="submit">Send</button>
+    </form>
+    <script>
+// Connexion au serveur via Socket.IO
+var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+// Gestion de la connexion au serveur
+socket.on('connect', function() {
+    console.log('Connected to server');
+});
+
+// Gestion de la réception de messages
+socket.on('message', function(data) {
+    // Création d'un élément de liste pour le message
+    var messageElement = $('<li>').text(data.name + ': ' + data.message);
+    // Ajout de la classe en fonction de l'expéditeur
+    if (data.id_sender == $('#id_user').val()) {
+        messageElement.addClass('sent');
+    } else {
+        messageElement.addClass('received');
+    }
+    // Ajout du message à la liste
+    $('#messages').append(messageElement);
+});
+
+// Gestion de la soumission du formulaire
+$('#form').submit(function(e) {
+    e.preventDefault(); // Empêche le rechargement de la page
+    var message = $('#message').val(); // Récupération du message
+    var id_salon = $('#id_salon').val(); // Récupération de l'ID du salon
+    var id_user = $('#id_user').val() // Récupération de l'ID de l'utilisateur
+    var data = {
+        message: message, // Message à envoyer
+        id_sender: id_user, // ID de l'expéditeur
+        id_salon: id_salon // ID du salon
+    };
+    // Envoi du message au serveur
+    socket.emit('message', data);
+    $('#message').val(''); // Réinitialisation du champ de texte
+    return false; // Empêche le rechargement de la page
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html data-theme="dark"> <!-- On indique que la page sera en mode sombre -->
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/><!-- lien vers un fichier css externe trouvable en ligne -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            /* Ajustement de la couleur de fond de la page */
+            body {
+                background-color: #f5be00; /* Couleur de fond dorée */
+                color: #fff; /* Couleur du texte en blanc */
+                min-height: 100vh; /* Hauteur minimale de la page */
+            }
+            .logo {
+                display: block;
+                margin: 20px auto;
+                width: 200px; /* Largeur du logo */
+            }
+            main {
+                padding: 20px;
+            }
+            section {
+                background-color: #333; /* Couleur de fond pour la section */
+                padding: 20px;
+                border-radius: 10px; /* Coins arrondis */
+            }
+            h3 {
+                margin-bottom: 20px; /* Marge en bas du titre */
+            }
+            a {
+                color: #007bff; /* Couleur des liens */
+                text-decoration: none; /* Pas de soulignement */
+            }
+            a:hover {
+                text-decoration: underline; /* Soulignement survol */
+            }
+            .grid-container {
+                display: grid;
+                grid-template-columns: auto auto;
+                gap: 10px;
+            }
+            .grid-item {
+                padding: 10px;
+                border-radius: 5px;
+                background-color: #444; /* Couleur de fond pour les éléments de la grille */
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- Logo en haut de la page -->
+        <div class="logo">
+            <a href="/accueil"><img src="/static/logo.png" alt="Logo"></a>
+        </div>
+
+        <main>
+
+            <!-- Section principale avec un style spécifique pour centrer le contenu et définir une largeur -->
+            <section style="margin: auto; width:80%">
+                <!-- Message de bienvenue avec le nom d'utilisateur -->
+                <h3>Bienvenue {{ session['user']['pseudo'] }}</h3>
+                <!-- Lien pour se déconnecter -->
+                <a href="/déconexion">déconexion</a>
+
+                <div style="margin-top: 20px">
+
+                    <!-- Conteneur de grille pour afficher les salons -->
+                    <div class="grid-container">
+
+                        <!-- Boucle pour parcourir chaque salle dans la liste des salles -->
+                        {% for salon in salons %}
+
+                            <!-- Nom du salon -->
+                            <div class="grid-item">{{ salon['nom'] }}</div>
+
+                            <!-- Condition pour afficher si le salon est complet ou non -->
+                            <div class="grid-item">
+                                {% if salon['cible'] == 'cible' %}
+                                    [complet] {{ salon['cible'] }}
+                                {% else %}
+                                    <a href="/salon/{{ salon['id'] }}">Entrer dans le salon</a>
+                                {% endif %}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- Lien pour créer un nouveau salon -->
+                    <a href="/nouveau_salon" class="btn btn-primary">Créer un nouveau salon</a>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </body>
+</html>
